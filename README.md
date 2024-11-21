@@ -1,6 +1,6 @@
 # AuthKit
 
-AuthKit is a Next.js starter project that integrates Shadcn, Prisma, and Neon.tech for database management. This starter kit provides a robust foundation for building authentication systems with modern technologies.
+AuthKit is a Next.js starter project that integrates Authjs Shadcn, Prisma, and Neon.tech for database management. This starter kit provides a robust foundation for building authentication systems with modern technologies.
 
 ## Features
 
@@ -8,6 +8,7 @@ AuthKit is a Next.js starter project that integrates Shadcn, Prisma, and Neon.te
 - **Shadcn**: A UI component library for building accessible and customizable user interfaces.
 - **Prisma**: An ORM for database access and management.
 - **Neon.tech**: A serverless Postgres database for modern applications.
+- **Authjs**: A newer version of Next Auth
 
 ## Getting Started
 
@@ -73,3 +74,4 @@ Contributions are welcome! Please open an issue or submit a pull request for any
 
 This project is licensed under the MIT License.
 
+s
