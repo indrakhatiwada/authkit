@@ -3,7 +3,7 @@ import React from "react";
 import { CardWrapper } from "./CardWrapper";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { LoginSchema } from "@/schemas";
+import { RegisterSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
@@ -15,27 +15,28 @@ import {
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { login } from "@/actions/login";
 import { FormError, FormSuccess } from "../formError";
+import { register } from "@/actions/register";
 // import { FormError, FormSuccess } from "../formError";
 
-export const LoginForm = () => {
+export const RegisterForm = () => {
   const [error, setError] = React.useState("");
   const [success, setSuccess] = React.useState("");
   const [isPending, startTransition] = React.useTransition();
-  const form = useForm<z.infer<typeof LoginSchema>>({
-    resolver: zodResolver(LoginSchema),
+  const form = useForm<z.infer<typeof RegisterSchema>>({
+    resolver: zodResolver(RegisterSchema),
     defaultValues: {
       email: "",
       password: "",
+      name: "",
     },
   });
 
-  const onSubmit = (data: z.infer<typeof LoginSchema>) => {
+  const onSubmit = (data: z.infer<typeof RegisterSchema>) => {
     setError("");
     setSuccess("");
     startTransition(() => {
-      login(data).then((res) => {
+      register(data).then((res) => {
         setError(
           res.error instanceof Error ? res.error.message : res.error ?? ""
         );
@@ -45,9 +46,9 @@ export const LoginForm = () => {
   };
   return (
     <CardWrapper
-      headerLabel="Welcome Back"
-      backLabel="Don't have an account? Register now"
-      backhref="/auth/register"
+      headerLabel="Register"
+      backLabel="Aleady have an account? Sign In"
+      backhref="/auth/login"
       showIcon
     >
       <Form {...form}>
@@ -86,6 +87,26 @@ export const LoginForm = () => {
                       disabled={isPending}
                     />
                   </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <Label>Username</Label>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      placeholder="john doe"
+                      type="text"
+                      disabled={isPending}
+                    />
+                  </FormControl>
+
                   <FormMessage />
                   <FormError message={error} />
                   <FormSuccess message={success} />
@@ -94,7 +115,7 @@ export const LoginForm = () => {
             />
           </div>
           <Button type="submit" className="w-full" disabled={isPending}>
-            Login{" "}
+            Register{" "}
           </Button>
           {/* <FormError message="Something went Wrong" />
           <FormSuccess message="Login Successful" /> */}
